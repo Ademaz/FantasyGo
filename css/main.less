@@ -1,0 +1,208 @@
+@white: #f6f6f6;
+@light-greyish: #e8e8e8;
+@dark-greyish: #333333;
+@dark-red: #990100;
+@light-red: #B90504;
+
+html {
+    font-family: 'Open Sans', sans-serif;
+    overflow-y: scroll;
+}
+
+body {
+    background: @white;
+}
+
+.heading {
+    font-size: 20px;
+    margin-top: 200px;
+}
+
+#regError {
+    margin-top: 5px;
+    color: red;
+    font-weight: bold;
+}
+
+.big-logo {
+    width:80%;
+    margin: 0 auto;
+    display: block;
+    margin: 15px auto 15px auto; 
+}
+
+.box {
+    background: @light-greyish;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.button1 {
+    color: @white;
+    background: @dark-red;
+    padding: 10px;
+    border: 1px solid @light-red;
+    float:left;
+}
+
+.nav {
+    background: @light-greyish;
+    padding: 0 0 0 4px;
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        float: left;
+    }
+
+    li {
+        display: inline-block;
+        margin: 5px 5px 5px 0;
+        padding: 10px;
+        background: @dark-red;
+    }
+
+    li:hover {
+        background: @light-red;
+    }
+
+    a {
+        color: @white;
+    }
+
+    button {
+        float:right;
+        margin: 5px 5px 5px 0;
+    }
+
+    button:hover {
+        background: @light-red;
+    }
+}
+
+.nav-row {
+    position: relative;
+}
+
+.loginBox {
+    position:absolute;
+    z-index: 50;
+    background: @light-greyish;
+    padding: 10px;
+    right:0;
+    top:60px;
+    border: 1px solid @dark-greyish;
+
+    button {
+        margin: 0 10px 0 0;
+    }
+}
+
+.form {
+    float: left;
+
+    p {
+        display: block;
+    }
+
+    input {
+        display: block;
+        height: 40px;
+    }
+}
+
+.intro {
+    text-align: center;
+}
+
+#dontHave {
+    color: @dark-red;
+    cursor: pointer;
+}
+
+#dontHave:hover {
+    color: @light-red;
+}
+
+.createTeam {
+    .topSpace {
+        margin-top: 20px;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .help {
+        text-align: center;
+    }
+}
+
+.playerCard {
+    background: @dark-greyish;
+    color: @white;
+    padding:10px;
+    border: 1px solid @white;
+
+    ul {
+        float:left;
+        list-style-type: none;
+        margin: 0 0 10px 0;
+    }
+
+    img {
+        float:right;
+        width:50%;
+    }
+
+    button {
+        margin: 0;
+    }
+}
+
+.teamStandings {
+    text-align: center;
+
+    table {
+        margin: 0 auto;
+    }
+
+    tr:hover {
+        background: @light-greyish;
+    }
+}
+
+.admin {
+    .large-6 {
+        text-align: center;
+    }
+
+    select {
+        width:30%;
+    }
+}
+
+.adminNav {
+    ul {
+        list-style-type: none;
+        margin: 0;
+    }
+
+    li {
+        display: inline-block;
+        margin: 5px 5px 5px 0;
+        padding: 10px;
+        background: @dark-red;
+        color: @white;
+        cursor: pointer;
+    }
+
+    li:hover {
+        background: @light-red;
+    }
+}
+
+.hidden {
+    display: none;
+}
