@@ -11,20 +11,30 @@ include("inc/head.php");
 		</div>
 
 		<p class="heading">Your Team</p>
-		<p>Budget: $</p>
+		<p>Budget: <?php  
+			mysql_connect("mysql16.citynetwork.se", "119897-sx52251", "Ademaz_1") or die (mysql_error());
+
+			mysql_select_db("119897-fantasyleague") or die (mysql_error());
+
+			$data = mysql_query("SELECT * FROM teams WHERE userID = '" . $_SESSION["userID"] . "'") or die(mysql_error());
+
+			while($info = mysql_fetch_array( $data )) {
+				Print "" . $info['budget'] . "";
+			}
+		?>$</p>
 		<div class="row">
 			<form id="insertTeam">
 				<div class="yourTeam">
 
 					<script type="text/javascript">
 						$.ajax({
+						dataType: 'json',
 						type: "POST",
 						url: 'ajax/insertPlayer.php',
 						data:{action:'getCurrent'},
 						success:function(data) {
-							for (i = 0; i < 5; i++) { 
+							console.log(data);
 									$('.yourTeam').append(data);
-								}
 							}
 						});
 					</script>
@@ -59,45 +69,6 @@ include("inc/head.php");
 						Print "</div>";
 					}
 				?>
-
-				<!-- <div class="large-4 columns playerCard">
-					<ul>
-						<li>Player Name</li>
-						<li>Team</li>
-						<li>Value: $</li>
-						<li>Fantasy Points: 23</li>
-					</ul>
-
-					<img src="img/friberg.jpg">
-
-					<input type="submit" value="Pick Player" class="button1">
-				</div>
-
-				<div class="large-4 columns playerCard">
-					<ul>
-						<li>Player Name</li>
-						<li>Team</li>
-						<li>Value: $</li>
-						<li>Fantasy Points: 23</li>
-					</ul>
-
-					<img src="img/friberg.jpg">
-
-					<input type="submit" value="Pick Player" class="button1">
-				</div>
-
-				<div class="large-4 columns playerCard">
-					<ul>
-						<li>Player Name</li>
-						<li>Team</li>
-						<li>Value: $</li>
-						<li>Fantasy Points: 23</li>
-					</ul>
-
-					<img src="img/friberg.jpg">
-
-					<input type="submit" value="Pick Player" class="button1">
-				</div> -->
 			</div>
 		</div>
 

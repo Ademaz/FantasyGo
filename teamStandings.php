@@ -23,16 +23,36 @@ include("inc/head.php");
 				
 				$i = 1;
 
+
 				while($info = mysql_fetch_array( $data )) {
+
 					print '<tr>';
 					Print '<td>' . $i . '</td>';
 					Print '<td>' . $info['teamName'] . '</td>';
-					Print '<td>' . $info['userID'] . '</td>';
-					Print '<td>' . $info['player1ID'] . '</td>';
-					Print '<td>' . $info['player2ID'] . '</td>';
-					Print '<td>' . $info['player3ID'] . '</td>';
-					Print '<td>' . $info['player4ID'] . '</td>';
-					Print '<td>' . $info['player5ID'] . '</td>';
+					$player1Name = mysql_query("SELECT username FROM users WHERE userID	 = '" . $info['userID'] . "'");
+					while($row = mysql_fetch_assoc($player1Name)) {
+					    Print '<td>' . $row['username'] . '</td>';
+					}
+					$player1Name = mysql_query("SELECT playerName FROM players WHERE playerID = '" . $info['player1ID'] . "'");
+					while($row = mysql_fetch_assoc($player1Name)) {
+					    Print '<td>' . $row['playerName'] . '</td>';
+					}
+					$playerName = mysql_query("SELECT playerName FROM players WHERE playerID = '" . $info['player2ID'] . "'");
+					while($row = mysql_fetch_assoc($playerName)) {
+					    Print '<td>' . $row['playerName'] . '</td>';
+					}
+					$playerName = mysql_query("SELECT playerName FROM players WHERE playerID = '" . $info['player3ID'] . "'");
+					while($row = mysql_fetch_assoc($playerName)) {
+					    Print '<td>' . $row['playerName'] . '</td>';
+					}
+					$playerName = mysql_query("SELECT playerName FROM players WHERE playerID = '" . $info['player4ID'] . "'");
+					while($row = mysql_fetch_assoc($playerName)) {
+					    Print '<td>' . $row['playerName'] . '</td>';
+					}
+					$playerName = mysql_query("SELECT playerName FROM players WHERE playerID = '" . $info['player5ID'] . "'");
+					while($row = mysql_fetch_assoc($playerName)) {
+					    Print '<td>' . $row['playerName'] . '</td>';
+					}
 					Print '<td>' . $info['budget'] . '</td>';
 					Print '<td>' . $info['fantasyPoints'] . '</td>';
 					print '</tr>';

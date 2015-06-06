@@ -23,33 +23,45 @@ mysql_select_db("119897-fantasyleague") or die (mysql_error());
 		</div>
 
 		<div class="adminUpdate">
-			<select>
+
+			<script>
+				function showPlayer(str) {
+				if (str=="") {
+						document.getElementById("txtHint").innerHTML="";
+						return;
+					} 
+					if (window.XMLHttpRequest) {
+						// code for IE7+, Firefox, Chrome, Opera, Safari
+						xmlhttp=new XMLHttpRequest();
+					} else { // code for IE6, IE5
+						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+					}
+					
+					xmlhttp.onreadystatechange=function() {
+						if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+							document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+						}
+
+					}
+					xmlhttp.open("GET","ajax/adminSelect.php?q="+str,true);
+					xmlhttp.send();
+				}
+				</script>
+
+			<form>
+			<select name="users" onchange="showPlayer(this.value)">
 				<?php
 					$data = mysql_query("SELECT * FROM players ORDER BY playerName ASC") or die(mysql_error());
 
 					while($info = mysql_fetch_array( $data )) {
-						Print '<option>' . $info['playerName'] . '</option>';
+						Print '<option value="'. $info['playerName'] .'">' . $info['playerName'] . '</option>';
 					}
 				?>
 			</select>
+			</form>
 
 			<form>
-				<table>
-					<tr><td>Player Name:</td><td></td></tr>
-					<tr><td>Team:</td><td></td></tr>
-					<tr><td>Value:</td><td></td></tr>
-					<tr><td>Games Played:</td><td></td></tr>
-					<tr><td>Kills:</td><td></td></tr>
-					<tr><td>Assists:</td><td></td></tr>
-					<tr><td>Deaths:</td><td></td></tr>
-					<tr><td>First Kills:</td><td></td></tr>
-					<tr><td>Team Kills:</td><td></td></tr>
-					<tr><td>3K:</td><td></td></tr>
-					<tr><td>4K:</td><td></td></tr>
-					<tr><td>5K:</td><td></td></tr>
-					<tr><td>Rounds Won:</td><td></td></tr>
-					<tr><td>Rounds Lost:</td><td></td></tr>
-				</table>
+				<div id="txtHint"><b>Player info will be listed here.</b></div>
 				<input type="submit" value="Update" name="updatePlayer" class="button1">
 			</form>
 
@@ -60,7 +72,7 @@ mysql_select_db("119897-fantasyleague") or die (mysql_error());
 				$data = mysql_query("SELECT * FROM users ORDER BY userID ASC") or die(mysql_error());
 
 				Print '<table>';
-				Print '<th>UserID</th><th>Username</th><th>Team Name</th><th>Remove User</th>';
+				Print '<th>UserID</th><th>Username</th><th>Remove User</th>';
 				
 				$i = 1;
 
@@ -68,7 +80,6 @@ mysql_select_db("119897-fantasyleague") or die (mysql_error());
 					print '<tr id="' . $info['userID'] . '">';
 					Print '<td>' . $info['userID'] . '</td>';
 					Print '<td>' . $info['username'] . '</td>';
-					Print '<td>' . $info['teamName'] . '</td>';
 					Print '<td><input type="submit" value="Remove" name="removeUser" class="button1 removeUserBtn" data-userID="' . $info['userID'] . '"></td>';
 					print '</tr>';
 				}

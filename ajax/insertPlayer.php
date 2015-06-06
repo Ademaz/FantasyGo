@@ -1,6 +1,9 @@
 <?php
 	session_start();
+	header('Content-type: application/json');
 	$con = mysql_connect("mysql16.citynetwork.se", "119897-sx52251", "Ademaz_1");
+	
+	$result = '';
 
 	if (!$con)
 	{
@@ -13,20 +16,18 @@
 		$_SESSION['id'] = 1;
 	}
 
-	$result = '';
 
 	if($_POST['action'] == 'getCurrent') {
-		$data = mysql_query("SELECT * FROM teams WHERE userID ='" . $_SESSION['userID'] . "' ") or die(mysql_error());
+			$data = mysql_query("SELECT * FROM teams WHERE userID ='" . $_SESSION['userID'] . "' ") or die(mysql_error());
 
+		while($info = mysql_fetch_array($data)) {
 
-			while($info = mysql_fetch_array( $data )) {
+			$dataPlayer = mysql_query("SELECT * FROM players WHERE playerID IN (" . $info['player1ID'] . ", " . $info['player2ID'] . ", " . $info['player3ID'] . ", " . $info['player4ID'] . "," . $info['player5ID'] . ")") or die(mysql_error());
+		}
 
-			$dataPlayer = mysql_query("SELECT * FROM players WHERE playerID IN ('" . $info['player1ID'] . "', '" . $info['player2ID'] . "', '" . $info['player3ID'] . "', '" . $info['player4ID'] . "' ,'" . $info['player5ID'] . "')  ") or die(mysql_error());
+		while($infoPlayer = mysql_fetch_array($dataPlayer)) {
 
-			while($infoPlayer = mysql_fetch_array( $dataPlayer )) {
-
-
-				$result = "
+				$result .= "
 				<div class='large-4 columns playerCard' id='{$infoPlayer['playerID']}'>
 				<ul>
 				<li><strong>{$infoPlayer['playerName']}</strong></li>
@@ -40,9 +41,7 @@
 				<button class='button1' data-userID='{$infoPlayer['playerID']}'>Remove</button>
 				</div>";
 			}
-		}
 
-		header('Content-type: application/json');
 		echo json_encode($result);
 	}
 
@@ -68,6 +67,9 @@
 			<button class='button1' data-userID='{$info['playerID']}'>Remove</button>
 			</div>";
 			$_SESSION['id']++;
+			
+			$budget = "UPDATE teams SET budget = (budget- ".$info['value'].") WHERE `userID` = '" . $_SESSION['userID'] . "'";
+			mysql_query($budget);
 		}
 
 
