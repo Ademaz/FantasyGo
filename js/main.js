@@ -5,7 +5,8 @@ $(document).ready(function(){
 		teamsNav = $('#teamsNav'),
 		adminUpdate = $('.adminUpdate'),
 		adminUsers = $('.adminUsers'),
-		dontHave = $("#dontHave");
+		dontHave = $("#dontHave")
+		yourTeam = $('.yourTeam');
 
 	$(updateNav).on('click', function(){
 		adminUpdate.removeClass('hidden');
@@ -141,6 +142,7 @@ $(document).ready(function(){
 
     $(addPlayerBtn).on('click', function(){
     	var t = $(this);
+    	
     	$.ajax({
 			type: "POST",
 			url: 'ajax/insertPlayer.php',
@@ -156,13 +158,11 @@ $(document).ready(function(){
 	var addTeamBtn = $('#submitTeam');
 
     $(addTeamBtn).on('click', function(){
-    	var t = $('form').serialize(),
-    		p1 = $('#hiddenValue1').val(),
+    		var p1 = $('#hiddenValue1').val(),
     		p2 = $('#hiddenValue2').val(),
     		p3 = $('#hiddenValue3').val(),
     		p4 = $('#hiddenValue4').val(),
     		p5 = $('#hiddenValue5').val();
-    	console.log('Form Data:' + t);
     	$.ajax({
 			type: "POST",
 			dataType: 'json',
@@ -174,5 +174,54 @@ $(document).ready(function(){
 		});
     });
 
+    /*Get remove player*/
+    yourTeam.delegate('.button1', 'click', function(){
+    	var id = $(this).attr('data-userID'),
+    		session_id = $(this).parent().find('input[type=hidden]').attr('id'),
+    		text_id = session_id.replace('hiddenValue', '');
+
+    		console.log(text_id);
+
+    	$.ajax({
+			type: "POST",
+			dataType: 'json',
+			url: 'ajax/insertPlayer.php',
+			data:{action:'removePlayer', id: text_id},
+			success:function(data) {
+				console.log(data);
+				$('.yourTeam').find('#' + id).replaceWith(data);
+			}
+		});
+    	
+    });
+
+    /*Update player*/
+    var updatePlayerBtn = $('#updatePlayerBtn');
+
+    $(updatePlayerBtn).on('click', function(){
+    	console.log('test')
+    	var inputGP = $('#inputGP').val(),
+    		hiddenField = $('#hiddenValue').val(),
+    		inputKills = $('#inputKills').val(),
+    		inputAssists = $('#inputAssists').val(),
+    		inputDeaths = $('#inputDeaths').val(),
+    		inputFK = $('#inputFK').val(),
+    		inputTK = $('#inputTK').val(),
+    		input3k = $('#input3k').val(),
+    		input4k = $('#input4k').val(),
+    		input5k = $('#input5k').val(),
+    		inputRW = $('#inputRW').val(),
+    		inputRL = $('#inputRL').val(),
+    		inputFP = $('#inputFP').val();
+
+    	$.ajax({
+			type: "POST",
+			url: 'ajax/adminActions.php',
+			data:{action:'updatePlayer', input1:inputGP, hidden1:hiddenField, input2:inputKills, input3:inputAssists, input4:inputDeaths, input5:inputFK, input6:inputTK, input7:input3k, input8:input4k, input9:input5k, input10:inputRW, input11:inputRL, input12:inputFP},
+			success:function(data) {
+				console.log('its working');
+			}
+		});
+    });
 
 });

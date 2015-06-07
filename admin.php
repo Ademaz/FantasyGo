@@ -54,7 +54,7 @@ mysql_select_db("119897-fantasyleague") or die (mysql_error());
 					$data = mysql_query("SELECT * FROM players ORDER BY playerName ASC") or die(mysql_error());
 
 					while($info = mysql_fetch_array( $data )) {
-						Print '<option value="'. $info['playerName'] .'">' . $info['playerName'] . '</option>';
+						Print '<option value="'. $info['playerID'] .'">' . $info['playerName'] . '</option>';
 					}
 				?>
 			</select>
@@ -62,7 +62,7 @@ mysql_select_db("119897-fantasyleague") or die (mysql_error());
 
 			<form>
 				<div id="txtHint"><b>Player info will be listed here.</b></div>
-				<input type="submit" value="Update" name="updatePlayer" class="button1">
+				<input type="button" value="Update" name="updatePlayer" class="button1" id="updatePlayerBtn">
 			</form>
 
 		</div>

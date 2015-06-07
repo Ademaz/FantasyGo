@@ -7,21 +7,10 @@ include("inc/head.php");
 		<img src="img/logo.svg" class="big-logo">
 		<div class="large-6 large-centered columns help">
 			<p class="heading">Time to pick your team!</p>
-			<p>Choose players by clicking the "Pick Player" button on each player card. Your budget is limited so keep an eye on the money.</p>
+			<p>Choose players by clicking the "Pick Player" button on each player card. The better the player, the better your score will be!</p>
 		</div>
 
 		<p class="heading">Your Team</p>
-		<p>Budget: <?php  
-			mysql_connect("mysql16.citynetwork.se", "119897-sx52251", "Ademaz_1") or die (mysql_error());
-
-			mysql_select_db("119897-fantasyleague") or die (mysql_error());
-
-			$data = mysql_query("SELECT * FROM teams WHERE userID = '" . $_SESSION["userID"] . "'") or die(mysql_error());
-
-			while($info = mysql_fetch_array( $data )) {
-				Print "" . $info['budget'] . "";
-			}
-		?>$</p>
 		<div class="row">
 			<form id="insertTeam">
 				<div class="yourTeam">
@@ -33,8 +22,7 @@ include("inc/head.php");
 						url: 'ajax/insertPlayer.php',
 						data:{action:'getCurrent'},
 						success:function(data) {
-							console.log(data);
-									$('.yourTeam').append(data);
+								$('.yourTeam').append(data);
 							}
 						});
 					</script>
@@ -61,7 +49,7 @@ include("inc/head.php");
 						Print '<li><strong>' . $info['playerName'] . '</strong></li>';
 						Print '<li><i>' . $info['playerTeam'] . '</i></li><br>';
 						Print '<li>FP: ' . $info['playerFantasyPoints'] . '</li>';
-						Print '<li>Value: $' . $info['value'] . '</li>';
+						//Print '<li>Value: $' . $info['value'] . '</li>';
 						Print '</ul>';
 
 						Print '<img src="' . $info['image'] . '">';

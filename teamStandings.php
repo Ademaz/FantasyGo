@@ -19,7 +19,7 @@ include("inc/head.php");
 				$data = mysql_query("SELECT * FROM teams ORDER BY fantasyPoints DESC") or die(mysql_error());
 
 				Print '<table>';
-				Print '<th>Rank</th><th>Team Name</th><th>Team Owner</th><th>Player 1</th><th>Player 2</th><th>Player 3</th><th>Player 4</th><th>Player 5</th><th>Budget</th><th>Fantasy Points</th>';
+				Print '<th>Rank</th><th>Team Name</th><th>Team Owner</th><th>Player 1</th><th>Player 2</th><th>Player 3</th><th>Player 4</th><th>Player 5</th><th>Fantasy Points</th>';
 				
 				$i = 1;
 
@@ -53,7 +53,7 @@ include("inc/head.php");
 					while($row = mysql_fetch_assoc($playerName)) {
 					    Print '<td>' . $row['playerName'] . '</td>';
 					}
-					Print '<td>' . $info['budget'] . '</td>';
+					
 					Print '<td>' . $info['fantasyPoints'] . '</td>';
 					print '</tr>';
 					$i++;
